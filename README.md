@@ -1,4 +1,4 @@
-# Thread Management and Synchronization with Singletons and Proxies
+# Thread Management and Synchronization with Singletons and Proxy
 
 
 
