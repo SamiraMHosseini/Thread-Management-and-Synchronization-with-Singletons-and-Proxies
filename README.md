@@ -35,3 +35,8 @@ This ensures that the thread counter is correctly updated as threads start and f
 
 The main purpose of the ThreadCounterRAII class in this code is to help manage the lifetime of threads and ensure that
 the ThrdCounter singleton keeps an accurate count of active threads.
+
+# Why Singleton pattern?
+If we didn't have the CtrlSingleton class, you would need to define global or global static variables to manage the shared resources (in this case, the mutex and condition variable) across multiple threads. However, using global or global static variables can make the code less modular and more prone to potential issues, such as initialization order problems, concurrency issues, or maintainability concerns.
+
+Using a singleton pattern like CtrlSingleton helps encapsulate the shared resources within a class, ensuring proper initialization and controlled access to the shared resources. This approach results in a cleaner and more maintainable code structure.
