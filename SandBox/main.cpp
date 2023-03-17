@@ -115,13 +115,15 @@ private:
 	std::mutex				 mtx_thread_count;
 };
 
-struct Proxy
+//Guard or handle the thread counter's increment and decrement using the RAII principle.
+
+struct ThreadCounterRAII
 {
-	Proxy()
+	ThreadCounterRAII()
 	{
 		ThrdCounter::TCUP();
 	}
-	~Proxy()
+	~ThreadCounterRAII()
 	{
 
 		ThrdCounter::TCDown();
@@ -139,7 +141,7 @@ public:
 		START_BANNER;
 
 
-		Proxy a;
+		ThreadCounterRAII a;
 
 		int count = 0;
 		while (true)
@@ -148,7 +150,7 @@ public:
 			count++;
 
 
-			std::future_status status = tFuture.wait_for(1s);
+			std::future_status status = tFuture.wait_for(1ms);
 			if (status == std::future_status::ready)
 			{
 				// can't read this multiple times
@@ -172,7 +174,7 @@ public:
 		START_BANNER;
 
 
-		Proxy b;
+		ThreadCounterRAII b;
 
 		int count = 0x10000;
 		while (true)
@@ -180,7 +182,7 @@ public:
 			Debug::out("0x%x\n", count);
 			count--;
 
-			std::future_status status = tFuture.wait_for(2s);
+			std::future_status status = tFuture.wait_for(1ms);
 			if (status == std::future_status::ready)
 			{
 				// can't read this multiple times
@@ -204,7 +206,7 @@ public:
 		START_BANNER;
 
 
-		Proxy c;
+		ThreadCounterRAII c;
 
 		const char* pFruit[] =
 		{
@@ -223,7 +225,7 @@ public:
 
 			std::future_status status =
 				//tFuture.wait_until(std::chrono::system_clock::now());
-				tFuture.wait_for(500ms);
+				tFuture.wait_for(1ms);
 			if (status == std::future_status::ready)
 			{
 				break;
@@ -244,7 +246,7 @@ public:
 		START_BANNER;
 
 
-		Proxy d;
+		ThreadCounterRAII d;
 
 		const char* pStoryOriginal = "<0><1><2><3><4><5><6><7><8>";
 		size_t  len = strlen(pStoryOriginal);
@@ -266,7 +268,7 @@ public:
 			pString[tmpLen--] = 0;
 			pString[tmpLen--] = 0;
 
-			std::future_status status = tFuture.wait_for(750ms);
+			std::future_status status = tFuture.wait_for(1ms);
 			if (status == std::future_status::ready)
 			{
 				// can't read this multiple times
@@ -276,7 +278,7 @@ public:
 		}
 
 		delete pString;
-		std::this_thread::sleep_for(2s);
+		//std::this_thread::sleep_for(2s);
 		
 	}
 };
@@ -308,8 +310,7 @@ public:
 
 int main()
 {
-	// time to move the console window over 
-	//std::this_thread::sleep_for(3s);
+	
 
 	START_BANNER_MAIN("main");
 
