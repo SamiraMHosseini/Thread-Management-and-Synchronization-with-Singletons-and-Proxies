@@ -40,3 +40,11 @@ the ThrdCounter singleton keeps an accurate count of active threads.
 If we didn't have the CtrlSingleton class, we would need to define global or global static variables to manage the shared resources (in this case, the mutex and condition variable) across multiple threads. However, using global or global static variables can make the code less modular and more prone to potential issues, such as initialization order problems, concurrency issues, or maintainability concerns.
 
 Using a singleton pattern like CtrlSingleton helps encapsulate the shared resources within a class, ensuring proper initialization and controlled access to the shared resources. This approach results in a cleaner and more maintainable code structure.
+
+
+# RAII
+RAII (Resource Acquisition Is Initialization) is a programming principle used in C++ and other languages with deterministic object lifetimes. The main idea behind RAII is to tie the lifetime of a resource (such as memory, file handles, sockets, or mutexes) to the lifetime of an object. This ensures that the resource is properly acquired during the object's creation and released when the object is destroyed.
+
+RAII is particularly useful for managing resources in the presence of exceptions or complex control flows, as it guarantees that resources are released even if an exception occurs. It helps prevent resource leaks and makes the code more robust and maintainable.
+
+To implement RAII, a class is designed to manage the resource, with the resource acquired in the class's constructor and released in the destructor. This way, when an object of the class is created, the resource is acquired, and when the object goes out of scope or is explicitly deleted, the resource is released.
