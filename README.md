@@ -1,7 +1,7 @@
 # Thread Management and Synchronization with Singletons and Proxy
 
 
-This code demonstrates thread management and synchronization using singleton patterns, proxy classes, and condition variables in C++. The key components are:
+This code demonstrates thread management and synchronization using singleton patterns, proxy class, and condition variables in C++. The key components are:
 
 CtrlSingleton class: A singleton class to manage a mutex and a condition variable for detecting a key press event in the controller thread.
 
