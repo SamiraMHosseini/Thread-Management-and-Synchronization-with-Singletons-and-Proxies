@@ -1,7 +1,27 @@
 # Thread Management and Synchronization with Singletons and Proxy
 
 
+This code demonstrates thread management and synchronization using singleton patterns, proxy classes, and condition variables in C++. The key components are:
 
+CtrlSingleton class: A singleton class to manage a mutex and a condition variable for detecting a key press event in the controller thread.
+
+ThrdCounter class: A singleton class that manages a thread counter, mutexes, and a condition variable to track the number of active threads and provide synchronization among them.
+
+Proxy class: A simple RAII class that increments and decrements the thread counter managed by the ThrdCounter singleton when its instances are created and destroyed, respectively.
+
+A, B, C, and D classes: Derived from BannerBase, these classes each represent a separate thread with their own specific tasks. They create a Proxy object in their operator() method, which will manage the thread counter.
+
+Controller class: Derived from BannerBase, this class represents the controller thread. It waits for a key press event and then signals all other threads to terminate. It also waits for all threads to complete their execution.
+
+main function: The main function creates instances of the A, B, C, D, and Controller classes, and spawns separate threads for each of them. It also handles the key press event and waits for the controller thread to finish.
+
+# The key points of the code are:
+
+The use of singleton patterns (CtrlSingleton and ThrdCounter) to manage shared resources across multiple threads.
+The Proxy class to handle the RAII mechanism for incrementing and decrementing the thread counter.
+The use of condition variables to synchronize and communicate between threads.
+Properly detaching threads and using std::future and std::promise to ensure the main thread waits for the controller thread to finish.
+The code demonstrates a multi-threaded C++ program that performs various tasks concurrently and terminates them gracefully upon receiving a key press event.
 
 The Proxy class in the provided code serves as a simple RAII (Resource Acquisition Is Initialization) mechanism 
 to increment and decrement the thread counter in the ThrdCounter singleton. 
