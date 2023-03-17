@@ -20,7 +20,6 @@ public:
 		CtrlSingleton& instance = CtrlSingleton::GetInstance();
 		std::condition_variable& cv_key = instance.cv_key;
 		return cv_key;
-
 	}
 
 private:
@@ -72,6 +71,7 @@ public:
 		std::lock_guard<std::mutex> lock(instance.mtx);
 		--instance.count;
 		Debug::out("~TC:%d \n", instance.count);
+
 		if (instance.count == 0)
 		{
 			instance.cv_thread_count.notify_one();
@@ -83,6 +83,7 @@ public:
 	static std::condition_variable& GetCVTC()
 	{
 		ThrdCounter& instance = ThrdCounter::GetInstance();
+
 		//Version 1 
 
 		/*std::condition_variable& cvTC = instance.cv_thread_count;
@@ -127,6 +128,8 @@ struct ThreadCounterRAII
 	}
 
 };
+
+
 class A : public BannerBase
 {
 public:
