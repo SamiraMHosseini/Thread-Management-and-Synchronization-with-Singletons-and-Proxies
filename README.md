@@ -1,4 +1,4 @@
-# Thread Management and Synchronization with Singletons and ThreadCounterRAII
+# Thread Management and Synchronization with Singletons and RAII (Resource Acquisition Is Initialization) principle
 
 
 This code demonstrates thread management and synchronization using singleton patterns, ThreadCounterRAII class, and condition variables in C++. The key components are:
